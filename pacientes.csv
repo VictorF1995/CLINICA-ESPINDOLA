@@ -1,0 +1,30 @@
+idPacientes,nombre,apellido,genero,dni,idCPacientes,idHClinico
+100,Víctor,Montoya,M,39456978,100,100
+101,José,Gomez,M,36147258,101,101
+102,Juan,Cayuela,M,33369582,102,102
+103,Ana María,Sobrino,F,31358247,103,103
+104,Isabel,Fernanedez,F,29259142,104,104
+105,Rodolfo,Baeza,M,27231987,105,105
+106,Mirta,Di Nardo,F,41357519,106,106
+107,Esteban,Toledo,M,40465357,107,107
+108,Raul,Del Marmol,M,18897936,108,108
+109,Monica,Brito,F,29247111,109,109
+110,Estefania,Lezama,F,36773355,110,110
+111,Cecilia,Rodriguez,F,42392817,111,111
+112,Melina,Berge,F,23316497,112,112
+113,Dario,Aquili,M,28567823,113,113
+114,Josefina,Calvi,F,14193728,114,114
+115,Teodoro,Gambino,M,46976521,115,115
+116,Melisa,Massa,F,17468255,116,116
+117,Agustina,Cifre,F,13256479,117,117
+118,Gaston,Espacavento,M,9518478,118,118
+119,Juan Cruz,Espindola,M,24621595,119,119
+120,Telma,Ramirez,F,38111999,120,120
+121,Rosario,Gonzalez,F,35459878,121,121
+122,Brenda,Boris,F,32513265,122,122
+123,Jorge,Termopilas,M,30824578,123,123
+124,Gustavo,Playadito,M,20773356,124,124
+125,Natanael,Rosamonte,M,10985241,125,125
+126,Irma,Cruz de Malta,F,11365274,126,126
+127,Yanina,Helmans,F,39269582,127,127
+128,Diego Armando,Bolsonaro,M,37955332,128,128
