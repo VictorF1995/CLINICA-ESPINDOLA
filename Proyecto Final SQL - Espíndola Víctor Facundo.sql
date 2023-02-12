@@ -51,7 +51,7 @@ idDoctor INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 nombre VARCHAR(255) NOT NULL,
 apellido VARCHAR(255) NOT NULL,
 fechaNacimiento DATE NOT NULL,
-matricula VARCHAR(255) NOT NULL,
+matricula INT NOT NULL,
 dni INT NOT NULL,
 idEspecialidad INT NOT NULL,
 idPacientes INT NOT NULL,
@@ -204,3 +204,95 @@ INSERT INTO pacientes (`idPacientes`,`nombre`,`apellido`,`genero`,`dni`,`idCPaci
 INSERT INTO pacientes (`idPacientes`,`nombre`,`apellido`,`genero`,`dni`,`idCPacientes`,`idHClinico`) VALUES (126,'Irma','Cruz de Malta','F',11365274,126,126);
 INSERT INTO pacientes (`idPacientes`,`nombre`,`apellido`,`genero`,`dni`,`idCPacientes`,`idHClinico`) VALUES (127,'Yanina','Helmans','F',39269582,127,127);
 INSERT INTO pacientes (`idPacientes`,`nombre`,`apellido`,`genero`,`dni`,`idCPacientes`,`idHClinico`) VALUES (128,'Diego Armando','Bolsonaro','M',37955332,128,128);
+
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (11,'cesar','Milstein','1968-12-01','985623',16564587,4,100);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (12,'gabriel','Levi','1962-08-02','784512',12457869,7,128);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (13,'marcela','Cohen','1986-01-13','142536',17264815,9,101);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (14,'monica','Benjamin','1976-05-24','968574',15595995,10,127);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (15,'esteban','Mizrachi','1960-10-05','786512',11464679,13,102);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (16,'andrea','Peretz','1983-12-06','124532',18666666,20,126);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (17,'susana','Biton','1978-12-01','988765',17555555,21,103);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (18,'rodolfo','Dohan','1956-08-02','416385',16999966,23,125);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (19,'julian','Abramov','1982-01-13','912478',18897936,26,104);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (20,'julieta','Friedman','1990-05-24','791391',19247111,27,124);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (21,'miguel','Azoulai','1969-10-05','713928',16773355,9,105);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (22,'ricardo','Malka','1971-12-06','783966',12392817,13,123);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (23,'luis','Katz','1975-12-01','459876',23316497,4,106);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (24,'Dario','Klein','1958-08-02','124466',8567823,9,122);
+
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1001,'2021-12-01','ibuprofeno',11,100,1,100);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1002,'2021-08-02','rivotril',24,101,3,101);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1003,'2019-01-13','viagra',23,102,5,102);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1004,'2019-05-24','paracetamol',20,105,7,105);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1005,'2019-10-05','',19,108,9,108);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1006,'2019-12-06','',18,111,11,111);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1007,'2019-12-01','ibuprofeno',15,114,12,114);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1008,'2019-08-02','',12,117,10,117);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1009,'2019-01-13','rivotril',17,120,8,120);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1010,'2019-05-24','',24,123,6,123);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1012,'2018-12-06','',19,101,2,101);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1013,'2018-12-01','',22,103,1,103);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1014,'2018-08-02','ibuprofeno',20,105,9,105);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1015,'2018-12-01','paracetamol',17,107,10,107);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1016,'2018-08-02','',15,109,9,109);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1017,'2018-01-13','rivotril',14,111,8,111);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1018,'2018-05-24','',16,113,7,113);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1019,'2020-10-05','paracetamol',19,115,6,115);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1020,'2020-12-06','ibuprofeno',22,117,1,117);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1021,'2020-12-01','',24,119,2,119);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1022,'2020-08-02','paracetamol',23,110,3,110);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1023,'2020-01-13','',20,120,7,120);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1024,'2020-05-24','',18,101,5,101);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1025,'2020-10-05','',16,102,2,102);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1026,'2020-12-06','ibuprofeno',17,103,9,103);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1027,'2020-12-01','paracetamol',22,104,7,104);
+INSERT INTO consultas (`idConsultas`,`fecha`,`receta`,`idDoctor`,`idPacientes`,`idConsultorio`,`idHClinico`) VALUES (1028,'2020-08-02','',12,105,6,105);
+
+create view Listado_Pacientes as
+select CONCAT_WS(' ', p.apellido, p.nombre) as NyA, genero, dni
+from pacientes as p
+order by p.apellido;
+
+create view Contacto_de_Pacientes as
+select CONCAT_WS(' ', p.apellido, p.nombre) as Nombre_Apellido, c_p.email as Correo, c_p.telefono as Tel
+from pacientes as p
+join contacto_pacientes as c_p ON (p.idPacientes = c_p.idCPacientes)
+order by p.apellido;
+
+create view Datos_Clinicos_de_Pacientes as
+select CONCAT_WS(' ', p.apellido, p.nombre) as Nombre_Apellido, 
+hc_p.edad as Edad ,hc_p.altura as Altura ,hc_p.peso ,hc_p.tipo_sangre as Sangre ,hc_p.enfermedades as Enfermedades
+from pacientes as p
+join historial_clinico as hc_p ON (p.idHClinico = hc_p.idHClinico)
+order by p.apellido;
+
+create view Consultas_de_Pacientes as
+select c.idConsultas as Numero_De_Gestion, CONCAT_WS(' ', p.nombre, p.apellido) as Nombre_De_Paciente,
+ c.fecha as Fecha, c.receta as Receta, CONCAT_WS(' ', d.nombre, d.apellido) as Doctor, a.direccion as Lugar
+from consultas as c
+join pacientes as p ON (c.idPacientes = p.idPacientes)
+join doctor as d ON (c.idDoctor = d.idDoctor)
+join consultorio as a  ON (c.idConsultorio = a.idConsultorio)
+order by idConsultas;
+
+create view Listado_Doctores as
+select CONCAT_WS(' ', d.apellido, d.nombre) as Nombre_De_Doctor,
+ d.fechaNacimiento as Fecha_De_Nacimiento, d.matricula as Matricula, e.nombre as Especialidad,
+ CONCAT_WS(' ', p.nombre, p.apellido) as Pacientes
+from doctor as d
+join especialidad as e ON (d.idEspecialidad = e.idEspecialidad)
+join pacientes as p  ON (d.idPacientes = p.idPacientes)
+order by d.apellido ;
+
+create view Listado_Especialidades as
+select e.nombre as Especialidad , CONCAT_WS(' ', d.apellido, d.nombre) as Nombre_De_Doctor
+from especialidad as e
+join doctor as d ON (d.idEspecialidad = e.idEspecialidad)
+order by e.nombre;
+
+create view Datos_De_Consultorios as
+select a.idConsultorio as Nro_De_Consultorio, a.direccion as Direccion, 
+a.cp as Codigo_Postal, a.telefono as Tel, a.mail as Correo
+from consultorio as a
+order by a.idConsultorio;
+

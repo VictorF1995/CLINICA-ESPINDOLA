@@ -1,0 +1,14 @@
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (11,'cesar','Milstein','1968-12-01','985623',16564587,4,100);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (12,'gabriel','Levi','1962-08-02','784512',12457869,7,128);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (13,'marcela','Cohen','1986-01-13','142536',17264815,9,101);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (14,'monica','Benjamin','1976-05-24','968574',15595995,10,127);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (15,'esteban','Mizrachi','1960-10-05','786512',11464679,13,102);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (16,'andrea','Peretz','1983-12-06','124532',18666666,20,126);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (17,'susana','Biton','1978-12-01','988765',17555555,21,103);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (18,'rodolfo','Dohan','1956-08-02','416385',16999966,23,125);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (19,'julian','Abramov','1982-01-13','912478',18897936,26,104);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (20,'julieta','Friedman','1990-05-24','791391',19247111,27,124);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (21,'miguel','Azoulai','1969-10-05','713928',16773355,9,105);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (22,'ricardo','Malka','1971-12-06','783966',12392817,13,123);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (23,'luis','Katz','1975-12-01','459876',23316497,4,106);
+INSERT INTO doctor (`idDoctor`,`nombre`,`apellido`,`fechaNacimiento`,`matricula`,`dni`,`idEspecialidad`,`idPacientes`) VALUES (24,'Dario','Klein','1958-08-02','124466',8567823,9,122);
