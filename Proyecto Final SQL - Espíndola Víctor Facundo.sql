@@ -254,21 +254,24 @@ from pacientes as p
 order by p.apellido;
 
 create view Contacto_de_Pacientes as
-select CONCAT_WS(' ', p.apellido, p.nombre) as Nombre_Apellido, c_p.email as Correo, c_p.telefono as Tel
+select CONCAT_WS(' ', p.apellido, p.nombre) as Nombre_Apellido, c_p.email 
+as Correo, c_p.telefono as Tel
 from pacientes as p
 join contacto_pacientes as c_p ON (p.idPacientes = c_p.idCPacientes)
 order by p.apellido;
 
 create view Datos_Clinicos_de_Pacientes as
 select CONCAT_WS(' ', p.apellido, p.nombre) as Nombre_Apellido, 
-hc_p.edad as Edad ,hc_p.altura as Altura ,hc_p.peso ,hc_p.tipo_sangre as Sangre ,hc_p.enfermedades as Enfermedades
+hc_p.edad as Edad ,hc_p.altura as Altura ,hc_p.peso ,hc_p.tipo_sangre 
+as Sangre ,hc_p.enfermedades as Enfermedades
 from pacientes as p
 join historial_clinico as hc_p ON (p.idHClinico = hc_p.idHClinico)
 order by p.apellido;
 
 create view Consultas_de_Pacientes as
-select c.idConsultas as Numero_De_Gestion, CONCAT_WS(' ', p.nombre, p.apellido) as Nombre_De_Paciente,
- c.fecha as Fecha, c.receta as Receta, CONCAT_WS(' ', d.nombre, d.apellido) as Doctor, a.direccion as Lugar
+select c.idConsultas as Numero_De_Gestion, CONCAT_WS(' ', p.nombre, p.apellido) 
+as Nombre_De_Paciente, c.fecha as Fecha, c.receta as Receta, 
+CONCAT_WS(' ', d.nombre, d.apellido) as Doctor, a.direccion as Lugar
 from consultas as c
 join pacientes as p ON (c.idPacientes = p.idPacientes)
 join doctor as d ON (c.idDoctor = d.idDoctor)
@@ -277,15 +280,16 @@ order by idConsultas;
 
 create view Listado_Doctores as
 select CONCAT_WS(' ', d.apellido, d.nombre) as Nombre_De_Doctor,
- d.fechaNacimiento as Fecha_De_Nacimiento, d.matricula as Matricula, e.nombre as Especialidad,
- CONCAT_WS(' ', p.nombre, p.apellido) as Pacientes
+ d.fechaNacimiento as Fecha_De_Nacimiento, d.matricula as Matricula, 
+ e.nombre as Especialidad, CONCAT_WS(' ', p.nombre, p.apellido) as Pacientes
 from doctor as d
 join especialidad as e ON (d.idEspecialidad = e.idEspecialidad)
 join pacientes as p  ON (d.idPacientes = p.idPacientes)
 order by d.apellido ;
 
 create view Listado_Especialidades as
-select e.nombre as Especialidad , CONCAT_WS(' ', d.apellido, d.nombre) as Nombre_De_Doctor
+select e.nombre as Especialidad , CONCAT_WS(' ', d.apellido, d.nombre) 
+as Nombre_De_Doctor
 from especialidad as e
 join doctor as d ON (d.idEspecialidad = e.idEspecialidad)
 order by e.nombre;
@@ -295,4 +299,41 @@ select a.idConsultorio as Nro_De_Consultorio, a.direccion as Direccion,
 a.cp as Codigo_Postal, a.telefono as Tel, a.mail as Correo
 from consultorio as a
 order by a.idConsultorio;
+
+/*Con ésta función podemos hacer un recuento rapido del total de pacientes */
+/*que tienen cada uno de los 4 tipos de sangre (A,B,AB,O) */
+
+DELIMITER //
+CREATE FUNCTION contador_tiposdesangre (tipo VARCHAR(3)) RETURNS int(2)
+deterministic
+  BEGIN
+	return (SELECT COUNT(*) FROM historial_clinico WHERE tipo_sangre = tipo);
+  END;//
+
+/*Con ésta función podemos calcula el indice de masa corporal de cada paciente*/
+/* Indicando que tipo de Peso tiene (Inferior, Normal, superior, obesidad)  */
+
+DELIMITER //
+CREATE FUNCTION Calculo_del_IMC (id_Paciente int (3)) RETURNS VARCHAR(60)
+deterministic
+  BEGIN
+	declare IMC INT(2);
+    declare p int (3);
+	declare h int (3);
+    declare mensaje varchar(60);
+    set p = ( SELECT peso from historial_clinico WHERE idHClinico = id_Paciente );
+    set h = ( SELECT altura from historial_clinico WHERE idHClinico = id_Paciente );
+    set	IMC = p/(POWER(2,h/100));
+	case
+		WHEN IMC>=28 then 
+			set mensaje = "El paciente tiene OBESIDAD";
+		when IMC<28 AND IMC>=23 then 
+			set mensaje = "El paciente tiene Peso Superior al Normal";
+		WHEN IMC<23 AND IMC>=19 then 
+			set mensaje = "El paciente tiene Peso Normal";
+		WHEN IMC<19 then 
+			set mensaje = "El paciente tiene Peso Inferior al Normal";
+	end case;
+	return (mensaje);
+  END;//
 
