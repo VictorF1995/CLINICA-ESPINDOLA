@@ -9,13 +9,13 @@ USE proyecto_HISTORIAL_medico;
 
 DROP TABLE IF EXISTS `especialidad`;
 CREATE TABLE IF NOT EXISTS `especialidad`(
-idEspecialidad INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+idEspecialidad INT NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
 nombre VARCHAR(100) NOT NULL
 );
 
 DROP TABLE IF EXISTS `historial_clinico`;
 CREATE TABLE IF NOT EXISTS `historial_clinico`(
-idHClinico INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+idHClinico INT NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
 edad INT NOT NULL,
 altura INT NOT NULL,
 peso INT NOT NULL,
@@ -25,7 +25,7 @@ enfermedades VARCHAR (255)
 
 DROP TABLE IF EXISTS `consultorio`;
 CREATE TABLE IF NOT EXISTS `consultorio`(
-idConsultorio INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+idConsultorio INT NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
 direccion VARCHAR (255),
 cp INT NOT NULL,
 telefono VARCHAR (100) NOT NULL,
@@ -34,14 +34,14 @@ mail VARCHAR (200) NOT NULL
 
 DROP TABLE IF EXISTS `contacto_pacientes`;
 CREATE TABLE IF NOT EXISTS `contacto_pacientes`(
-idCPacientes INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+idCPacientes INT NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
 email VARCHAR(255) UNIQUE,
 telefono VARCHAR(255)
 );
 
 DROP TABLE IF EXISTS `pacientes`;
 CREATE TABLE IF NOT EXISTS `pacientes`(
-idPacientes INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+idPacientes INT NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
 nombre VARCHAR(255) NOT NULL,
 apellido VARCHAR(255) NOT NULL,
 genero VARCHAR (1) NOT NULL,
@@ -49,13 +49,13 @@ dni INT NOT NULL,
 prepaga VARCHAR(255),
 idCPacientes INT NOT NULL,
 idHClinico INT NOT NULL,
-FOREIGN KEY (idCPacientes) REFERENCES contacto_pacientes(idCPacientes),
+FOREIGN KEY (idCPacientes) REFERENCES contacto_pacientes(idCPacientes) ,
 FOREIGN KEY (idHClinico) REFERENCES historial_clinico(idHClinico)
 );
 
 DROP TABLE IF EXISTS `doctor`;
 CREATE TABLE IF NOT EXISTS `doctor`(
-idDoctor INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+idDoctor INT NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
 nombre VARCHAR(255) NOT NULL,
 apellido VARCHAR(255) NOT NULL,
 fechaNacimiento DATE NOT NULL,
@@ -69,7 +69,7 @@ FOREIGN KEY (idPacientes) REFERENCES pacientes(idPacientes)
 
 DROP TABLE IF EXISTS `consultas`;
 CREATE TABLE IF NOT EXISTS `consultas`(
-idConsultas INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+idConsultas INT NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
 fecha DATE NOT NULL,
 receta VARCHAR(255) NOT NULL,
 idDoctor INT NOT NULL,
@@ -82,6 +82,14 @@ FOREIGN KEY (idConsultorio) REFERENCES consultorio(idConsultorio),
 FOREIGN KEY (idHClinico) REFERENCES historial_clinico(idHClinico)
 );
 
+DROP TABLE IF EXISTS `bitacora`;
+CREATE TABLE IF NOT EXISTS `bitacora`(
+idB int auto_increment not null primary key,
+accion varchar (30),
+fecha datetime,
+id_insertado int,
+usuario varchar(30)
+);
 
 create view Listado_Pacientes as
 select CONCAT_WS(' ', p.apellido, p.nombre) as NyA, genero, dni
@@ -173,9 +181,40 @@ deterministic
 	end case;
 	return (mensaje);
   END;//
-  
 
-  /*Procedimiento almacenado que actualiza la prepaga del paciente*/
+  
+  /*Procedimiento almacenado que CARGA NUEVOS PACIENTES*/
+DROP PROCEDURE IF EXISTS `create_paciente`
+DELIMITER //
+CREATE PROCEDURE `create_paciente` (
+	IN id INT, IN nombre_new VARCHAR(255),
+    IN apellido_new VARCHAR(255), 
+    IN genero_new VARCHAR(1), 
+    IN dni_new INT, 
+    IN prepaga_new VARCHAR(255), 
+    IN email_new VARCHAR(255),
+    IN telefono_new VARCHAR(255), 
+    IN edad_new INT, 
+    IN altura_new INT, 
+    IN peso_new INT, 
+    IN tipo_sangre_new VARCHAR (20), 
+    IN enfermedades_new VARCHAR (255))	
+	BEGIN
+		DECLARE existe_paciente INT;
+
+        SET existe_paciente = (SELECT COUNT(*) FROM pacientes WHERE dni=dni_new);
+        IF existe_paciente = 0 THEN
+			SET FOREIGN_KEY_CHECKS=0;
+			INSERT INTO pacientes 
+			VALUES (id,nombre_new,apellido_new ,genero_new ,dni_new ,prepaga_new,id, id );
+            INSERT INTO contacto_pacientes
+			VALUES (id,email_new,telefono_new);
+			INSERT INTO historial_clinico
+			VALUES (id,edad_new,altura_new,peso_new,tipo_sangre_new,enfermedades_new);
+		END IF;
+END//
+
+/*Procedimiento almacenado que actualiza la prepaga del paciente*/
 
 DROP PROCEDURE IF EXISTS `update_prepaga`
 DELIMITER //
@@ -183,7 +222,6 @@ CREATE PROCEDURE `update_prepaga` (IN id_paciente INT,IN nombre_prepaga CHAR(20)
 BEGIN
    update pacientes set prepaga = nombre_prepaga where idPacientes = id_paciente;   
 END//
-
 
 
  /*Procedimiento almacenado que actualiza la los datos del paciente*/
@@ -203,4 +241,31 @@ BEGIN
    IF nombre_prepaga != '' THEN
    update pacientes set prepaga = nombre_prepaga where idPacientes = id_paciente; 
    END IF;
+END//
+
+ /*Trigger que deja el registro de la creación de un paciente nuevo en la Bitacora*/
+DELIMITER //
+CREATE trigger `bitacora_insert` 
+after insert on pacientes
+for each row
+BEGIN
+   insert into bitacora (accion, fecha, id_insertado, usuario) values ('create', now(), new.idPacientes , SYSTEM_USER());
+END//
+ 
+ /*Trigger que deja el registro de la actualización de un paciente en la Bitacora*/
+DELIMITER //
+CREATE trigger `bitacora_update` 
+after update on pacientes
+for each row
+BEGIN
+   insert into bitacora (accion, fecha, id_insertado, usuario) values ('update', now(), new.idPacientes , SYSTEM_USER());
+END//
+
+ /*Trigger que deja el registro de la eliminación de un paciente en la Bitacora*/
+DELIMITER //
+CREATE trigger `bitacora_delete` 
+before delete on pacientes
+for each row
+BEGIN
+   insert into bitacora (accion, fecha, id_insertado, usuario) values ('delete', now(), old.idPacientes , SYSTEM_USER());
 END//
