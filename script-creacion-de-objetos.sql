@@ -1,12 +1,9 @@
 -- CREACION DE LA BASE DE DATOS
-
 DROP DATABASE IF EXISTS `proyecto_HISTORIAL_medico`;
 CREATE DATABASE IF NOT EXISTS `proyecto_HISTORIAL_medico`;
 USE proyecto_HISTORIAL_medico;
 
-
 -- CREACION DE LAS ENTIDADES
-
 DROP TABLE IF EXISTS `especialidad`;
 CREATE TABLE IF NOT EXISTS `especialidad`(
 idEspecialidad INT NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
@@ -182,27 +179,20 @@ deterministic
 	return (mensaje);
   END;//
 
-  
   /*Procedimiento almacenado que CARGA NUEVOS PACIENTES*/
+
+
 DROP PROCEDURE IF EXISTS `create_paciente`
 DELIMITER //
 CREATE PROCEDURE `create_paciente` (
-	IN id INT, IN nombre_new VARCHAR(255),
-    IN apellido_new VARCHAR(255), 
-    IN genero_new VARCHAR(1), 
-    IN dni_new INT, 
-    IN prepaga_new VARCHAR(255), 
-    IN email_new VARCHAR(255),
-    IN telefono_new VARCHAR(255), 
-    IN edad_new INT, 
-    IN altura_new INT, 
-    IN peso_new INT, 
-    IN tipo_sangre_new VARCHAR (20), 
+	IN id INT, IN nombre_new VARCHAR(255), IN apellido_new VARCHAR(255), 
+    IN genero_new VARCHAR(1), IN dni_new INT, IN prepaga_new VARCHAR(255), 
+    IN email_new VARCHAR(255), IN telefono_new VARCHAR(255), IN edad_new INT, 
+    IN altura_new INT, IN peso_new INT, IN tipo_sangre_new VARCHAR (20), 
     IN enfermedades_new VARCHAR (255))	
 	BEGIN
 		DECLARE existe_paciente INT;
-
-        SET existe_paciente = (SELECT COUNT(*) FROM pacientes WHERE dni=dni_new);
+		SET existe_paciente = (SELECT COUNT(*) FROM pacientes WHERE dni=dni_new);
         IF existe_paciente = 0 THEN
 			SET FOREIGN_KEY_CHECKS=0;
 			INSERT INTO pacientes 
@@ -225,9 +215,13 @@ END//
 
 
  /*Procedimiento almacenado que actualiza la los datos del paciente*/
+
+
+
 DROP PROCEDURE IF EXISTS `update_paciente`
 DELIMITER //
-CREATE PROCEDURE `update_paciente` (IN id_paciente INT, IN nombre_nuevo VARCHAR(255), IN apellido_nuevo VARCHAR(255), IN genero_nuevo VARCHAR (1), IN nombre_prepaga VARCHAR(255))
+CREATE PROCEDURE `update_paciente` (IN id_paciente INT, IN nombre_nuevo VARCHAR(255), 
+IN apellido_nuevo VARCHAR(255), IN genero_nuevo VARCHAR (1), IN nombre_prepaga VARCHAR(255))
 BEGIN
    IF nombre_nuevo != '' THEN
    update pacientes set nombre = nombre_nuevo where idPacientes = id_paciente;
@@ -244,28 +238,51 @@ BEGIN
 END//
 
  /*Trigger que deja el registro de la creación de un paciente nuevo en la Bitacora*/
+
 DELIMITER //
 CREATE trigger `bitacora_insert` 
 after insert on pacientes
 for each row
 BEGIN
-   insert into bitacora (accion, fecha, id_insertado, usuario) values ('create', now(), new.idPacientes , SYSTEM_USER());
+   insert into bitacora (accion, fecha, id_insertado, usuario) 
+   values ('create', now(), new.idPacientes , SYSTEM_USER());
 END//
  
  /*Trigger que deja el registro de la actualización de un paciente en la Bitacora*/
+
 DELIMITER //
 CREATE trigger `bitacora_update` 
 after update on pacientes
 for each row
 BEGIN
-   insert into bitacora (accion, fecha, id_insertado, usuario) values ('update', now(), new.idPacientes , SYSTEM_USER());
+   insert into bitacora (accion, fecha, id_insertado, usuario) 
+   values ('update', now(), new.idPacientes , SYSTEM_USER());
 END//
 
  /*Trigger que deja el registro de la eliminación de un paciente en la Bitacora*/
+
 DELIMITER //
 CREATE trigger `bitacora_delete` 
 before delete on pacientes
 for each row
 BEGIN
-   insert into bitacora (accion, fecha, id_insertado, usuario) values ('delete', now(), old.idPacientes , SYSTEM_USER());
+   insert into bitacora (accion, fecha, id_insertado, usuario) 
+   values ('delete', now(), old.idPacientes , SYSTEM_USER());
 END//
+
+USE mysql;
+
+/*Creación de los Usuarios*/
+DROP USER IF EXISTS Usuario1@localhost;
+CREATE USER Usuario1@localhost IDENTIFIED BY '12345678';
+DROP USER IF EXISTS Usuario2@localhost;
+CREATE USER Usuario2@localhost IDENTIFIED BY '12345678';
+
+/*Otorgar permisos al Usuario1 de solo lectura para todas las tablas*/
+GRANT SELECT ON *.* TO Usuario1@localhost;
+
+/*Otorgar permisos al Usuario2 de lectura, modificación e inserción para todas las tablas*/
+GRANT SELECT, UPDATE, INSERT ON *.* TO Usuario2@localhost;
+
+/*Aseguramos que ambos usuarios no pueden eliminar registros*/
+REVOKE DELETE ON *.* FROM Usuario1@localhost, Usuario2@localhost;
