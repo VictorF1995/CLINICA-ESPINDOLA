@@ -1,3 +1,5 @@
+/****************************             DML				*********************************/
+/********************************************************************************************/
 USE proyecto_HISTORIAL_medico;
 
 INSERT INTO especialidad 
@@ -5,7 +7,7 @@ VALUES
 (1,'ALERGIA'),
 (2,'INMUNOLOGIA'),
 (3,'ANESTESIOLOGIA'),
-(4,'CARDIOLOGIA'),
+(4,'HEMATOLOGIA'),
 (5,'HEMODINAMIA'),
 (6,'CIRUGIA CARDIOVASCULAR'),
 (7,'CIRUGIA GENERAL'),
@@ -16,7 +18,7 @@ VALUES
 (12,'GASTROENTEROLOGIA'),
 (13,'GINECOLOGIA'),
 (14,'OBSTETRICIA'),
-(15,'HEMATOLOGIA'),
+(15,'CARDIOLOGIA'),
 (16,'INFECTOLOGIA'),
 (17,'NEUROLOGIA'),
 (18,'NUTRICION'),
@@ -143,7 +145,7 @@ VALUES
 
 INSERT INTO doctor
 VALUES 
-(11,'cesar','Milstein','1968-12-01','985623',16564587,4,100),
+(11,'cesar','Milstein','1968-12-01','985623',16564587,15,100),
 (12,'gabriel','Levi','1962-08-02','784512',12457869,7,128),
 (13,'marcela','Cohen','1986-01-13','142536',17264815,9,101),
 (14,'monica','Benjamin','1976-05-24','968574',15595995,10,127),
@@ -155,7 +157,7 @@ VALUES
 (20,'julieta','Friedman','1990-05-24','791391',19247111,27,124),
 (21,'miguel','Azoulai','1969-10-05','713928',16773355,9,105),
 (22,'ricardo','Malka','1971-12-06','783966',12392817,13,123),
-(23,'luis','Katz','1975-12-01','459876',23316497,4,106),
+(23,'luis','Katz','1975-12-01','459876',23316497,15,106),
 (24,'Dario','Klein','1958-08-02','124466',8567823,9,122);
 
 INSERT INTO consultas

@@ -1,3 +1,5 @@
+/****************************             DDL				*********************************/
+/********************************************************************************************/
 -- CREACION DE LA BASE DE DATOS
 DROP DATABASE IF EXISTS `proyecto_HISTORIAL_medico`;
 CREATE DATABASE IF NOT EXISTS `proyecto_HISTORIAL_medico`;
@@ -181,7 +183,6 @@ deterministic
 
   /*Procedimiento almacenado que CARGA NUEVOS PACIENTES*/
 
-
 DROP PROCEDURE IF EXISTS `create_paciente`
 DELIMITER //
 CREATE PROCEDURE `create_paciente` (
@@ -213,10 +214,7 @@ BEGIN
    update pacientes set prepaga = nombre_prepaga where idPacientes = id_paciente;   
 END//
 
-
  /*Procedimiento almacenado que actualiza la los datos del paciente*/
-
-
 
 DROP PROCEDURE IF EXISTS `update_paciente`
 DELIMITER //
@@ -270,6 +268,10 @@ BEGIN
    values ('delete', now(), old.idPacientes , SYSTEM_USER());
 END//
 
+/********************************************************************************************/
+/****************************             DCL				*********************************/
+/********************************************************************************************/
+
 USE mysql;
 
 /*Creación de los Usuarios*/
@@ -286,3 +288,47 @@ GRANT SELECT, UPDATE, INSERT ON *.* TO Usuario2@localhost;
 
 /*Aseguramos que ambos usuarios no pueden eliminar registros*/
 REVOKE DELETE ON *.* FROM Usuario1@localhost, Usuario2@localhost;
+
+/********************************************************************************************/
+/****************************             DCL				*********************************/
+/********************************************************************************************/
+
+/*Eliminar registros con la posibilidad de Revertir Eliminación*/
+START TRANSACTION;
+DELETE FROM proyecto_historial_medico.especialidad WHERE idEspecialidad = 1;
+DELETE FROM proyecto_historial_medico.especialidad WHERE idEspecialidad = 2;
+DELETE FROM proyecto_historial_medico.especialidad WHERE idEspecialidad = 3;
+DELETE FROM proyecto_historial_medico.especialidad WHERE idEspecialidad = 4;
+DELETE FROM proyecto_historial_medico.especialidad WHERE idEspecialidad = 5;
+/*Si yo cierro MySQL las eliminaciones no se guardan*/
+/*Para deshacer las eliminaciones ejecuto:*/
+ROLLBACK;
+
+/*Eliminar registros de forma definitiva*/
+START TRANSACTION;
+DELETE FROM proyecto_historial_medico.especialidad WHERE idEspecialidad = 1;
+DELETE FROM proyecto_historial_medico.especialidad WHERE idEspecialidad = 2;
+DELETE FROM proyecto_historial_medico.especialidad WHERE idEspecialidad = 3;
+DELETE FROM proyecto_historial_medico.especialidad WHERE idEspecialidad = 4;
+DELETE FROM proyecto_historial_medico.especialidad WHERE idEspecialidad = 5;
+/*Para confirmar las eliminaciones de forma definitiva ejecuto:*/
+COMMIT;
+
+/*Inserción de 8 nuevos registros con SavePoint*/
+START TRANSACTION;
+    INSERT INTO proyecto_historial_medico.doctor 
+    VALUES 
+	(25,'Daniel','Scaloni','1970-1-20','123456',20564123,6,'113'),
+    (26,'Florencia','Dybala','1971-2-19','123457',21564321,7,'115'),
+    (27,'Pedro','Otamendi','1972-3-18','123458',22564123,8,'117'),
+    (28,'Clara','Martinez','1973-4-17','123459',23564321,9,'119');
+SAVEPOINT CuatroRegistros;
+INSERT INTO proyecto_historial_medico.doctor
+	VALUES 
+	(29,'Felipe','Montiel','1974-5-16','123460',24564123,10,'121'),
+    (30,'Valentina','Romero','1975-6-15','123461',25564321,11,'123'),
+    (31,'Ernesto','De Paul','1976-7-14','123462',26564123,12,'125'),
+    (32,'Josefina','Messi','1977-8-13','123463',27564321,13,'127');
+SAVEPOINT OchoRegistros;
+/*Eliminar SavePoint:*/
+RELEASE SAVEPOINT CuatroRegistros;
