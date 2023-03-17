@@ -17,8 +17,8 @@
 
 --
 -- Dumping data for table `bitacora`
---Descripción: esta tabla contiene información de todos los cambios
---realizados en la tabla pacientes (INSERT, UPDATE, DELETE)
+-- Descripción: esta tabla contiene información de todos los cambios
+-- realizados en la tabla pacientes (INSERT, UPDATE, DELETE)
 
 LOCK TABLES `bitacora` WRITE;
 /*!40000 ALTER TABLE `bitacora` DISABLE KEYS */;
@@ -28,9 +28,9 @@ UNLOCK TABLES;
 
 --
 -- Dumping data for table `consultas`
---Descripción: esta tabla contiene información de casi todas las tablas
---creadas, ya que recopila datos del paciente, doctor, consultorio e
---historial clínico.
+-- Descripción: esta tabla contiene información de casi todas las tablas
+-- creadas, ya que recopila datos del paciente, doctor, consultorio e
+-- historial clínico.
 
 LOCK TABLES `consultas` WRITE;
 /*!40000 ALTER TABLE `consultas` DISABLE KEYS */;
@@ -40,8 +40,8 @@ UNLOCK TABLES;
 
 --
 -- Dumping data for table `consultorio`
---Descripción: esta tabla contiene información de contacto y dirección
---de cada consultorio del centro medico.
+-- Descripción: esta tabla contiene información de contacto y dirección
+-- de cada consultorio del centro medico.
 
 LOCK TABLES `consultorio` WRITE;
 /*!40000 ALTER TABLE `consultorio` DISABLE KEYS */;
@@ -51,8 +51,8 @@ UNLOCK TABLES;
 
 --
 -- Dumping data for table `contacto_pacientes`
---Descripción: esta tabla contiene información de contacto de cada uno
---de los pacientes, como el email y teléfono.
+-- Descripción: esta tabla contiene información de contacto de cada uno
+-- de los pacientes, como el email y teléfono.
 
 LOCK TABLES `contacto_pacientes` WRITE;
 /*!40000 ALTER TABLE `contacto_pacientes` DISABLE KEYS */;
@@ -62,8 +62,8 @@ UNLOCK TABLES;
 
 --
 -- Dumping data for table `doctor`
---Descripción: esta tabla contiene información estratégica de cada
---doctor como su matrícula, especialidad y pacientes asignados.
+-- Descripción: esta tabla contiene información estratégica de cada
+-- doctor como su matrícula, especialidad y pacientes asignados.
 
 LOCK TABLES `doctor` WRITE;
 /*!40000 ALTER TABLE `doctor` DISABLE KEYS */;
@@ -73,8 +73,8 @@ UNLOCK TABLES;
 
 --
 -- Dumping data for table `especialidad`
---Descripción: esta tabla contiene información de las distintas
---especialidades médicas del centro medico.
+-- Descripción: esta tabla contiene información de las distintas
+-- especialidades médicas del centro medico.
 
 LOCK TABLES `especialidad` WRITE;
 /*!40000 ALTER TABLE `especialidad` DISABLE KEYS */;
@@ -84,8 +84,8 @@ UNLOCK TABLES;
 
 --
 -- Dumping data for table `historial_clinico`
---Descripción: esta tabla contiene información del historial clínico de
---cada paciente.
+-- Descripción: esta tabla contiene información del historial clínico de
+-- cada paciente.
 
 LOCK TABLES `historial_clinico` WRITE;
 /*!40000 ALTER TABLE `historial_clinico` DISABLE KEYS */;
@@ -95,9 +95,9 @@ UNLOCK TABLES;
 
 --
 -- Dumping data for table `pacientes`
---Descripción: esta tabla contiene información estratégica de cada uno
---de los pacientes que tiene el centro médico. Como datos personales,
---datos de contacto e historial clínico.
+-- Descripción: esta tabla contiene información estratégica de cada uno
+-- de los pacientes que tiene el centro médico. Como datos personales,
+-- datos de contacto e historial clínico.
 
 LOCK TABLES `pacientes` WRITE;
 /*!40000 ALTER TABLE `pacientes` DISABLE KEYS */;
